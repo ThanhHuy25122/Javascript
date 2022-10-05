@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Bài tập buổi 3 js bài tập thêm</h1>
+    <h2>bài 1</h2>
+    <form method="post">
+      <label style="padding-left: 15px" for="txtFullName">Họ & tên :</label>
+      <input id="txtFullName" type="text" placeholder="Nhập họ & tên" />
+      <label style="padding-left: 15px" for="txtTotalSalary"
+        >Thu nhập (triệu/năm) :</label
+      >
+      <input
+        id="txtTotalSalary"
+        type="number"
+        placeholder="Nhập tổng thu nhập"
+      />
+      <label style="padding-left: 15px" for="txtNumberOfMember"
+        >Số người phụ thuộc :</label
+      >
+      <input
+        id="txtNumberOfMember"
+        type="number"
+        placeholder="Nhập số người phụ thuộc"
+      />
+      <input type="button" value="Tính" onclick="calcTax()" />
+      <p id="answerEx1"></p>
+    </form>
+    <script src="./index.js"></script>
+  </body>
+</html>
