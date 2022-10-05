@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <h1>Bài tập buổi 3 js bài tập thêm</h1>
@@ -30,6 +31,53 @@
       />
       <input type="button" value="Tính" onclick="calcTax()" />
       <p id="answerEx1"></p>
+    </form>
+
+    <form method="post">
+      <input
+        id="txtFamily"
+        type="radio"
+        name="chooseTypeBill"
+        onclick="hideTxtConnection()"
+      />
+      <label for="txtFamily">Căn hộ</label>
+      <input
+        id="txtCompany"
+        type="radio"
+        name="chooseTypeBill"
+        onclick="showTxtConnection()"
+      /><label for="txtCompany">Doanh nghiệp</label>
+      <label style="padding-left: 15px" for="txtHighLevel">Kênh cao cấp</label>
+      <input id="txtHighLevel" type="checkbox" onclick="showNHL()" />
+      <label id="titleNHL" for="numberHighlevel" class="hide"
+        >Số kênh cao cấp :</label
+      >
+      <input
+        type="number"
+        name="numberHighLevel"
+        id="txtNumberHighLevel"
+        placeholder="Nhập số kênh cao cấp"
+        class="hide"
+      />
+      <label
+        id="titleConnection"
+        style="padding-left: 15px"
+        for="txtNumberOfMember"
+        class="hide"
+        >Số kết nối :</label
+      >
+
+      <input
+        id="txtConnection"
+        type="number"
+        placeholder="Nhập số kết nối"
+        class="hide"
+      />
+      <input type="button" value="Tính" onclick="calcBillCable()" />
+      <div id="bill" style="display: none">
+        <p class="nameBill">Bill</p>
+        <p id="priceList"></p>
+      </div>
     </form>
     <script src="./index.js"></script>
   </body>

@@ -16,11 +16,11 @@
  *
  */
 
-function calcTax(fullName, totalSalary, numberOfMember) {
+function calcTax() {
   var tax, taxableIncome, taxRate;
-  fullName = document.getElementById('txtFullName').value;
-  totalSalary = 1000000 * document.getElementById('txtTotalSalary').value;
-  numberOfMember = +document.getElementById('txtNumberOfMember').value;
+  var fullName = document.getElementById('txtFullName').value;
+  var totalSalary = 1000000 * document.getElementById('txtTotalSalary').value;
+  var numberOfMember = +document.getElementById('txtNumberOfMember').value;
   taxableIncome = totalSalary - 4000000 - numberOfMember * 1600000;
   function calcTaxRate(totalSalary) {
     if (totalSalary <= 60000000) {
@@ -49,11 +49,100 @@ function calcTax(fullName, totalSalary, numberOfMember) {
 
 /**
  * INPUT :
+ *       1. bảng giá cáp của nhà dân và doanh nghiệp
+ *       2. mã khách hàng, loại khách hàng, số kết nối, số kênh cao cấp.
  *
  *
- * PROCESS
- *
- *
- * OUTPUT
+ * PROCESS :
+ *       1. lấy input :
+ *            - Phí xứ lý hóa đơn (p1)
+ *            - Phí dịch vụ cơ bản (p2), kết nối thêm (p2_1)
+ *            - Phí thuê kênh cao cấp (p3)
+ *            - Số kênh cao cấp thuê (highLevel)
+ *            - Số kết nối  (connection)
+ *       2. Xét:
+ *          - Doanh nghiệp sổ kết nối hiện
+ *          - Nhà dân ẩn ô nhập kết nối
+ *       3. Tính Bill
+ *           3.1 nhà dân
+ *            bill = p1 + p2 + p2_1 * more + p3*highLevel
+ *           3.2 doanh nghiệp :
+ *             + connection <= 10 : bill = p1 + p2 + p3*highLevel
+ *             + connection > 10  : bill = p1 + p2 + p2_1 * (connection - 10 ) + p3 * highLevel
+ * OUTPUT :
+ *        In ra hóa đơn
  *
  */
+
+function calcBillCable() {
+  var bill, p1, p2, p2_1, p3, connection, highLevel, numberHighLevel;
+  var inputFamily = document.getElementById('txtFamily');
+  var inputCompany = document.getElementById('txtCompany');
+  if (inputFamily.checked == true) {
+    p1 = 4.5;
+    p2 = 20.5;
+    p2_1 = 0;
+    p3 = 7.5;
+    connection = 0;
+  } else if (inputCompany.checked == true) {
+    p1 = 15;
+    p2 = 75;
+    p2_1 = 5;
+    p3 = 50;
+    var connection = +document.getElementById('txtConnection').value;
+    if (connection < 0) {
+      connection = 0;
+    }
+  } else {
+    return alert('Chọn loại gói');
+  }
+  var highLevel = document.getElementById('txtHighLevel');
+  if (highLevel.checked == false) {
+    numberHighLevel = 0;
+  } else {
+    numberHighLevel = +document.getElementById('txtNumberHighLevel').value;
+  }
+
+  if (connection <= 10) {
+    bill = p1 + p2 + p3 * numberHighLevel;
+  } else {
+    bill = p1 + p2 + p2_1 * (connection - 10) + p3 * numberHighLevel;
+  }
+  document.getElementById('bill').style.display = 'block';
+  document.getElementById('priceList').innerHTML = bill + '$';
+}
+
+function showNHL() {
+  var tx = document.getElementById('txtHighLevel');
+  if (tx.checked == true) {
+    document.getElementById('txtNumberHighLevel').classList.add('show');
+    document.getElementById('txtNumberHighLevel').classList.remove('hide');
+    document.getElementById('titleNHL').classList.remove('hide');
+    document.getElementById('titleNHL').classList.add('show');
+  } else {
+    document.getElementById('txtNumberHighLevel').classList.add('hide');
+    document.getElementById('txtNumberHighLevel').classList.remove('show');
+    document.getElementById('titleNHL').classList.add('hide');
+    document.getElementById('titleNHL').classList.remove('show');
+  }
+}
+
+function showTxtConnection() {
+  var tx = document.getElementById('txtCompany');
+  if (tx.checked == true) {
+    document.getElementById('txtConnection').classList.remove('hide');
+    document.getElementById('txtConnection').classList.add('show');
+    document.getElementById('titleConnection').classList.remove('hide');
+    document.getElementById('titleConnection').classList.add('show');
+  }
+}
+
+function hideTxtConnection() {
+  var tx = document.getElementById('txtFamily');
+  if (tx.checked == true) {
+    document.getElementById('txtConnection').classList.add('hide');
+    document.getElementById('txtConnection').classList.remove('show');
+    document.getElementById('titleConnection').classList.add('hide');
+    document.getElementById('titleConnection').classList.remove('show');
+  }
+}
